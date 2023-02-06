@@ -28,11 +28,11 @@ When specifying ALL,REGION,GATEWAY,QUEUE argument types, only one argument is ne
 Example: `--arguments "ALL"`
 
 When specifying the STORE argument, the second argument must be the name of the disk store. 
-If the disk store defined as the second argument, does not exist, the function will throw the exception `NoDiskStoreExists`
+If the disk store defined as the second argument, does not exist, the function will throw the exception `NoDiskStoreExistsException`
 
 Example: `--arguments "STORE,{disk-store-name}"`
 
-If no or an invalid type is specified in first argument, the function will throw the exception `InvalidArgTypeSpecified`
+If no or an invalid type is specified in first argument, the function will throw the exception `InvalidArgTypeSpecifiedException`
 
 
 
