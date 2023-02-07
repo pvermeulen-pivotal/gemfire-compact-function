@@ -3,7 +3,7 @@ package com.vmware.gemfire.function;
 
 import com.vmware.gemfire.function.group.DiskStoreGroup;
 import com.vmware.gemfire.function.group.DiskStoreGroup.CompactType;
-import com.vmware.gemfire.function.exceptions.InvalidArgTypeSpecifiedException;
+import com.vmware.gemfire.function.exceptions.InvalidArgumentTypeException;
 import com.vmware.gemfire.function.exceptions.NoDiskStoreExistsException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,6 @@ import org.apache.geode.cache.Declarable;
 import org.apache.geode.cache.asyncqueue.AsyncEventQueue;
 import org.apache.geode.cache.execute.Function;
 import org.apache.geode.cache.execute.FunctionContext;
-import org.apache.geode.cache.execute.FunctionService;
 import org.apache.geode.cache.wan.GatewaySender;
 import org.apache.geode.internal.cache.InternalCache;
 import org.apache.geode.internal.cache.InternalRegion;
@@ -131,7 +130,7 @@ public class CompactDiskStoresFunction implements Function<String>, Declarable {
         return sb.toString();
     }
 
-    private String compactDiskStores(CompactType type, String diskStoreName) throws NoDiskStoreExistsException, InvalidArgTypeSpecifiedException {
+    private String compactDiskStores(CompactType type, String diskStoreName) throws NoDiskStoreExistsException, InvalidArgumentTypeException {
         List<DiskStoreGroup> diskStoreGroups = new ArrayList<>();
         InternalCache cache = (InternalCache) CacheFactory.getAnyInstance();
 
@@ -147,7 +146,7 @@ public class CompactDiskStoresFunction implements Function<String>, Declarable {
             case ALL:
                 return processDiskStores(cache, getAll(cache));
             default:
-                throw new InvalidArgTypeSpecifiedException("Compaction request type was not specified");
+                throw new InvalidArgumentTypeException("Compaction request type was not specified");
         }
     }
 
@@ -168,7 +167,7 @@ public class CompactDiskStoresFunction implements Function<String>, Declarable {
                 response = compactDiskStores(CompactType.valueOf(functionArgs[0]), null);
             }
         } else {
-            throw new InvalidArgTypeSpecifiedException("Compaction request type was not specified");
+            throw new InvalidArgumentTypeException("Compaction request type was not specified");
         }
     }
 
