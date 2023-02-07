@@ -1,4 +1,4 @@
-package com.vmware.function.group;
+package com.vmware.gemfire.function.group;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

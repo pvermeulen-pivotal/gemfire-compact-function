@@ -1,16 +1,18 @@
-package com.vmware.function;
+package com.vmware.gemfire.function;
 
 
-import com.vmware.function.group.DiskStoreGroup;
-import com.vmware.function.group.DiskStoreGroup.CompactType;
-import com.vmware.function.exceptions.InvalidArgTypeSpecifiedException;
-import com.vmware.function.exceptions.NoDiskStoreExistsException;
+import com.vmware.gemfire.function.group.DiskStoreGroup;
+import com.vmware.gemfire.function.group.DiskStoreGroup.CompactType;
+import com.vmware.gemfire.function.exceptions.InvalidArgTypeSpecifiedException;
+import com.vmware.gemfire.function.exceptions.NoDiskStoreExistsException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.geode.cache.CacheFactory;
+import org.apache.geode.cache.Declarable;
 import org.apache.geode.cache.asyncqueue.AsyncEventQueue;
 import org.apache.geode.cache.execute.Function;
 import org.apache.geode.cache.execute.FunctionContext;
+import org.apache.geode.cache.execute.FunctionService;
 import org.apache.geode.cache.wan.GatewaySender;
 import org.apache.geode.internal.cache.InternalCache;
 import org.apache.geode.internal.cache.InternalRegion;
@@ -20,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 @Slf4j
-public class CompactDiskStoresFunction implements Function<String> {
+public class CompactDiskStoresFunction implements Function<String>, Declarable {
 
     private String getSource(List<DiskStoreGroup> groups, String diskStoreName) {
         for (DiskStoreGroup grp : groups) {
