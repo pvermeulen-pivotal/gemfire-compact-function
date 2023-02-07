@@ -32,7 +32,7 @@ If the disk store defined as the second argument, does not exist, the function w
 
 Example: `--arguments "STORE,{disk-store-name}"`
 
-If no or an invalid type is specified in first argument, the function will throw the exception `InvalidArgTypeSpecifiedException`
+If no type or an invalid type is specified in first argument, the function will throw the exception `InvalidArgumentTypeException`
 
 
 
