@@ -69,8 +69,15 @@ public class CompactDiskStoresFunction implements Function<String>, Declarable {
         return diskStoreGroups;
     }
 
+    private List<DiskStoreGroup> getPdx(InternalCache cache) {
+        List<DiskStoreGroup> diskStoreGroups = new ArrayList<>();
+        diskStoreGroups.add(new DiskStoreGroup("pdx", CompactType.PDX,cache.getPdxDiskStore()));
+        return diskStoreGroups;
+    }
+
     private List<DiskStoreGroup> getAll(InternalCache cache) {
         List<DiskStoreGroup> diskStoreNames = new ArrayList<>();
+        diskStoreNames.addAll(getPdx(cache));
         diskStoreNames.addAll(getRegions(cache));
         diskStoreNames.addAll(getGatewaySenders(cache));
         diskStoreNames.addAll(getAsyncQueues(cache));
@@ -137,6 +144,8 @@ public class CompactDiskStoresFunction implements Function<String>, Declarable {
         switch (type) {
             case STORE:
                 return processDiskStores(cache, getSingleStore(cache, diskStoreName));
+            case PDX:
+                return processDiskStores(cache, getPdx(cache));
             case QUEUE:
                 return processDiskStores(cache, getAsyncQueues(cache));
             case GATEWAY:

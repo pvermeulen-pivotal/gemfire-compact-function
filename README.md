@@ -15,6 +15,7 @@ Arguments can be:
   
   #### Argument 1 - Types
   - ALL - Compacts all disk stores defined in server     
+  - PDX - Compacts PDX disk store 
   - REGION - Compacts all region disk stores
   - GATEWAY - Compacts all gateway disk stores
   - QUEUE - Compacts all asynchronous queue disk stores
